@@ -41,7 +41,11 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
             if not address: address = self.client_address[0]
             ip = ipaddress.ip_address(address)
             if ip.version == 6 and ip.ipv4_mapped: ip = ip.ipv4_mapped
-            self.wfile.write(str(ip).encode('ascii'))
+            self.wfile.write(str('REMOTE_ADDR: {}\n'.format(ip)).encode('ascii'))
+            self.wfile.write(str('REQUEST: {}\n'.format(self.requestline)).encode('ascii'))
+            self.wfile.write(str('REFERER: {}\n'.format(self.headers.get('referer', ''))).encode('ascii'))
+            self.wfile.write(str('USERAGENT: {}\n'.format(self.headers.get('user-agent', ''))).encode('ascii'))
+        
         elif path == '/favicon.ico':
             self.send_response(200)
             self.send_header('Content-type', 'image/png')

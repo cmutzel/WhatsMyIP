@@ -14,6 +14,8 @@ or clone the repository.
 
 Start the tool like this:
 
+	virtualenv -p python3.5 venv
+	source venv/bin/activate
     ./whatsmyip.py --host :: --port 8080
 
 It should be run a a computer or server that's reachable over the Internet.
